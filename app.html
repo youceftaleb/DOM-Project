@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/669701b84a.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Shopping Cart</title>
+    <link
+      rel="shortcut icon"
+      href="favicon/cart-shopping-solid.svg"
+      type="image/x-icon"
+    />
+    <style>
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        display: inline-block;
+      }
+      .items {
+        display: flex;
+        justify-content: space-around;
+      }
+      .item {
+        border: 1px solid black;
+        padding: 20px 30px;
+        margin: 10px 20px;
+        width: 35%;
+      }
+      .fa-solid {
+        cursor: pointer;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <h1 class="title">Shopping Cart</h1>
+      <h2 style="margin-left: 5%">Total Price :</h2>
+      <h2 class="price">0</h2>
+      <h2>DA</h2>
+      <div class="items">
+        <div class="Tshirt item">
+          <h3>Tshirt</h3>
+          <h5>Price : 250 DA</h5>
+          <span>Quantity :</span>
+          <span class="quantity">0</span>
+          <br /><br />
+          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-minus"></i>
+          <i class="fa-solid fa-trash-can"></i>
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <div class="Hoodie item">
+          <h3>Hoodie</h3>
+          <h5>Price : 250 DA</h5>
+          <span>Quantity :</span>
+          <span class="quantity">0</span>
+          <br /><br />
+          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-minus"></i>
+          <i class="fa-solid fa-trash-can"></i>
+          <i class="fa-solid fa-heart"></i>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var plus = document.querySelectorAll(".fa-plus");
+    var minus = document.querySelectorAll(".fa-minus");
+    var del = document.querySelectorAll(".fa-trash-can");
+    var heart = document.querySelectorAll(".fa-heart");
+    var totalPrice = document.querySelector(".price");
+
+    // incrementation
+    plus.forEach(function (plus) {
+      plus.addEventListener("click", function (ev) {
+        plus.previousElementSibling.previousElementSibling.previousElementSibling.textContent =
+          Number(
+            plus.previousElementSibling.previousElementSibling
+              .previousElementSibling.textContent
+          ) + 1;
+        totalPrice.textContent = Number(totalPrice.textContent) + 250;
+      });
+    });
+
+    // decrementation
+    minus.forEach(function (minus) {
+      minus.addEventListener("click", function (ev) {
+        if (
+          Number(
+            minus.previousElementSibling.previousElementSibling
+              .previousElementSibling.previousElementSibling.textContent
+          ) > 0
+        ) {
+          minus.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent =
+            Number(
+              minus.previousElementSibling.previousElementSibling
+                .previousElementSibling.previousElementSibling.textContent
+            ) - 1;
+          totalPrice.textContent = Number(totalPrice.textContent) - 250;
+        } else {
+          minus.parentElement.remove();
+        }
+      });
+    });
+
+    // deleting
+    del.forEach(function (led) {
+      led.addEventListener("click", function (ev) {
+        led.parentElement.remove();
+        totalPrice.textContent =
+          Number(totalPrice.textContent) -
+          Number(
+            led.previousElementSibling.previousElementSibling
+              .previousElementSibling.previousElementSibling
+              .previousElementSibling.textContent
+          ) *
+            250;
+      });
+    });
+
+    // favoring
+    var isLiked = false;
+    heart.forEach(function (fav) {
+      fav.addEventListener("click", function (ev) {
+        if (isLiked) {
+          fav.style.color = "black";
+          isLiked = false;
+        } else if (!isLiked) {
+          fav.style.color = "red";
+          isLiked = true;
+        }
+      });
+    });
+  </script>
+</html>
